@@ -22,7 +22,7 @@ const db=mysql.createConnection({
 })
 
 
-app.listen("https://safesecure.onrender.com",()=>{
+app.listen(5000,()=>{
     console.log("Server Listening to port ");
 })
 
