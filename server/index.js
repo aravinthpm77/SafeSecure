@@ -76,31 +76,20 @@ app.post("/create-checkout-session",async(req,res)=>{
     }
 })
 app.post('/auth', (req, res) => {
-    const {
-        name,
-        email,
-        password
-   
-    } = req.body;
+    const { name, email, password } = req.body;
+    const values = [name, email, password].map(val => (val !== undefined ? val : null));
 
-    const values = [
-        name,
-        email,
-        password
-    ];
-
-    const sanitizedValues = values.map(val => (val !== undefined ? val : null));
+    
 
     db.execute(
         'INSERT INTO Auth (name,email,password) VALUES (?, ?, ?)',
-        sanitizedValues,
+        values,
         (error, results) => {
             if (error) {
                 console.error(error);
-                return res.status(500).send('Internal Server Error');
+                return res.status(500).json({ message: 'Internal Server Error' });
             }
-            res.json({Status:"Success"});
-            return res.status(201).send('User Details Added');
+            res.status(201).json({ Status: "Success" });
             
         }
     );
