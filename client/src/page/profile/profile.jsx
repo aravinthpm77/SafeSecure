@@ -14,7 +14,7 @@ const Profile = () => {
     console.log('Checking authentication and fetching profile'); 
       console.log(token);
       if (token) {
-          axios.get('http://https://safesecure.onrender.com/verifyToken', {
+          axios.get('http://safesecure.onrender.com/verifyToken', {
               headers: {
                   Authorization: `Bearer ${token.token}`
               }
