@@ -10,78 +10,69 @@ const Auth = ()=>{
     const[name,setName]=useState('');
     const[email,setEmail]=useState('');
     const[password,setPassword]=useState('');
-    const [formSubmitted,setformSubmitted]=useState(false);
+    const [formSubmitted,setFormSubmitted]=useState(false);
     const formRef=useRef(null);
     const navigate = useNavigate();
     
     const handleSwitch =()=>{
         setIsSignup(!isSignup);
     }
-    const handleSubmit=(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(name,email,password,"Email Details");
-        try{
-            if(isSignup){
-                axios.post('http://localhost:5000/auth',{name,email,password})
-                .then(
-                    res=>toast.success("Created Successfully" )
-                    )
-                     
-                .catch(err=>alert(err,"error"));
-                    
-                setformSubmitted(true);
-                navigate('/');
+        console.log(name, email, password, "Email Details");
+
+        try {
+            if (isSignup) {
+                await handleSignup();
+            } else {
+                await handleLogin();
             }
-            if(!isSignup){
-                try{
-                    if (email === "admin@gmail.com" && password==="admin@123" ) {
-                        navigate("/admin"); 
-                    } 
-                    else {
-                        const response= axios.post('http://localhost:5000/login',{email,password})
-
-                        .then(response => {
-                            console.log(response.data.token,1);
-                            
-                            if (response.data && response.data.Status === 'Success') {
-                                toast.success('Logged In');
-                                localStorage.setItem("UserDetails",JSON.stringify({name:response.data.name ,email,password}));
-                                
-                                localStorage.setItem("Profile",JSON.stringify({token:response.data.token}));
-                                navigate('/home');
-                            } else {
-                                toast.warning(`Warning: ${response.data.Error}`);
-                        }})
-
-                        
-                        
-                        .catch(error => {
-                            console.error('Error:', error);
-                            toast.error("Error Login");
-                        }); 
-                           
-                        
-                        
-                            setformSubmitted(true);
-                            
-                    }
-
-                }
-                catch(error){
-                    console.log("Login Error",error);
-                }
-                
-                
-                
-                    
-                
-            }
-        }
-        
-        catch(error){
-            console.error('Authentication Error',error);
+        } catch (error) {
+            console.error('Authentication Error', error);
         }
     }
+    const handleSignup = async () => {
+        try {
+            const response = await axios.post('https://safesecure.onrender.com/auth', { name, email, password }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            toast.success("Created Successfully");
+            setFormSubmitted(true);
+            navigate('/');
+        } catch (error) {
+            console.error('Signup Error:', error.response || error);
+            toast.error("Error: " + (error.response?.data?.message || error.message));
+        }
+    }
+
+    const handleLogin = async () => {
+        try {
+            if (email === "admin@gmail.com" && password === "admin@123") {
+                navigate("/admin");
+            } else {
+                const response = await axios.post('https://safesecure.onrender.com/login', { email, password }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.data && response.data.Status === 'Success') {
+                    toast.success('Logged In');
+                    localStorage.setItem("UserDetails", JSON.stringify({ name: response.data.name, email, password }));
+                    localStorage.setItem("Profile", JSON.stringify({ token: response.data.token }));
+                    navigate('/home');
+                } else {
+                    toast.warning(`Warning: ${response.data.Error}`);
+                }
+            }
+        } catch (error) {
+            console.error('Login Error:', error.response || error);
+            toast.error("Error Login");
+        }
+    }
+
     
     return(
         <div className="bg-teal-200 h-screen w-screen flex justify-center items-center">

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 
 const CheckoutForm = ({ product }) => {
-  const stripePromise = loadStripe('your-publishable-key-here');
+
 
   const stripe = useStripe();
   const elements = useElements();

@@ -14,7 +14,7 @@ const Profile = () => {
       
       console.log(token);
       if (token) {
-          axios.get('http://localhost:5000/verifyToken', {
+          axios.get('http://https://safesecure.onrender.com/verifyToken', {
               headers: {
                   Authorization: `Bearer ${token.token}`
               }
@@ -23,7 +23,7 @@ const Profile = () => {
               setIsLoggedIn(true);
               // Fetch profile data
               axios
-        .get("http://localhost:5000/singleUser", {
+        .get("http://https://safesecure.onrender.com/singleUser", {
           headers: { Authorization: `Bearer ${token.token}` },
           })
 
@@ -63,7 +63,7 @@ const Profile = () => {
 
   
   const fetchClaimedProducts = (userId) => {
-    axios.get(`http://localhost:5000/claimedProducts/${userId}` ,userId)
+    axios.get(`https://safesecure.onrender.com/claimedProducts/${userId}` ,userId)
         .then(response => {
             console.log('Claimed products:', response.data);
             // Handle the claimed products data, e.g., set state in a React component
@@ -144,7 +144,7 @@ fetchClaimedProducts(profileData.id);
     </main>
     
     <div className='flex'>  {claimedProduct && claimedProduct.map((product, index) => (                         
-    <a href="#" key={index} class="mb-5 ml-10 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
+    <div key={index} class="mb-5 ml-10 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl
      hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ">
         <img class=" object-cover rounded-t-lg  h-full md:w-44  md:rounded-lg" src={img4} alt=""/>
         <div class="flex flex-col justify-between p-4 leading-normal transition">
@@ -152,7 +152,7 @@ fetchClaimedProducts(profileData.id);
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.product_type} Insurance </p>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.product_price}</p>
         </div>
-    </a>
+    </div>
     ))}
     </div>
     <Footer/>
