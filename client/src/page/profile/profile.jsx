@@ -23,7 +23,7 @@ const Profile = () => {
               setIsLoggedIn(true);
               // Fetch profile data
               axios
-        .get("http://https://safesecure.onrender.com/singleUser", {
+        .get("https://https://safesecure.onrender.com/singleUser", {
           headers: { Authorization: `Bearer ${token.token}` },
           })
 
