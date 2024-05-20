@@ -63,8 +63,8 @@ app.post("/create-checkout-session",async(req,res)=>{
             payment_method_types: ['card'],
             mode: "payment",
             line_items,
-            success_url: 'http://localhost:3000/success', // Redirect to this URL after successful payment
-            cancel_url: 'http://localhost:3000/cancel',
+            success_url: 'https://safesecure-kappa.vercel.app//success', // Redirect to this URL after successful payment
+            cancel_url: 'https://safesecure-kappa.vercel.app//cancel',
             
 
         });

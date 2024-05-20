@@ -11,7 +11,7 @@ const Profile = () => {
 
   const token = JSON.parse(localStorage.getItem('Profile'));
   const checkAuthenticationAndFetchProfile = () => {
-      
+    console.log('Checking authentication and fetching profile'); 
       console.log(token);
       if (token) {
           axios.get('http://https://safesecure.onrender.com/verifyToken', {
@@ -53,7 +53,7 @@ const Profile = () => {
   
 
   useEffect(() => {
-      
+    console.log('Navbar component mounted');
       checkAuthenticationAndFetchProfile();
   }, []);
   console.log(profileData);

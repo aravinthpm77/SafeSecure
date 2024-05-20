@@ -58,7 +58,7 @@ const Life =()=>{
         
         console.log(token);
         if (token) {
-            axios.get('http://localhost:5000/verifyToken', {
+            axios.get('https://safesecure.onrender.com/verifyToken', {
                 headers: {
                     Authorization: `Bearer ${token.token}`
                 }
@@ -67,7 +67,7 @@ const Life =()=>{
                 setIsLoggedIn(true);
                 // Fetch profile data
                 axios
-          .get("http://localhost:5000/singleUser", {
+          .get("https://safesecure.onrender.com/singleUser", {
             headers: { Authorization: `Bearer ${token.token}` },
           })
 
