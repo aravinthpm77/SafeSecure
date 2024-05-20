@@ -39,6 +39,7 @@ const Auth = ()=>{
                 }
             });
             toast.success("Created Successfully");
+            toast.success("LogIn Now");
             setFormSubmitted(true);
             navigate('/');
         } catch (error) {
@@ -60,6 +61,7 @@ const Auth = ()=>{
 
                 if (response.data && response.data.Status === 'Success') {
                     toast.success('Logged In');
+                    
                     localStorage.setItem("UserDetails", JSON.stringify({ name: response.data.name, email, password }));
                     localStorage.setItem("Profile", JSON.stringify({ token: response.data.token }));
                     navigate('/home');
