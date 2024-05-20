@@ -56,7 +56,7 @@ const Navbar=()=>{
                   // Clear profile data
                   setProfileData(null);
               });
-          } else {
+          } else {  
               // If no token found, set isLoggedIn to false and clear profile data
               setIsLoggedIn(false);
               setProfileData(null);
