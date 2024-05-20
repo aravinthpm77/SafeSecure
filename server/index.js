@@ -23,7 +23,7 @@ const db=mysql.createConnection({
 
 
 app.listen(5000,()=>{
-    console.log("Server Listening to port ");
+    console.log("Server Listening to port 5000");
 })
 
   
