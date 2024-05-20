@@ -22,7 +22,7 @@ const CheckoutForm = ({ product }) => {
       
       console.log(token);
       if (token) {
-          axios.get('http://localhost:5000/verifyToken', {
+          axios.get('https://safesecure.onrender.com/verifyToken', {
               headers: {
                   Authorization: `Bearer ${token.token}`
               }
@@ -31,7 +31,7 @@ const CheckoutForm = ({ product }) => {
               setIsLoggedIn(true);
               // Fetch profile data
               axios
-        .get("http://localhost:5000/singleUser", {
+        .get("https://safesecure.onrender.com/singleUser", {
           headers: { Authorization: `Bearer ${token.token}` },
           })
 
@@ -78,8 +78,8 @@ const CheckoutForm = ({ product }) => {
     const userId=profileData.id;
     console.log(productId,productType,userId);
     try {
-      const response = await axios.post('http://localhost:5000/create-checkout-session', { products });
-      const productresponse=await axios.post('http://localhost:5000/claimProduct',{
+      const response = await axios.post('https://safesecure.onrender.com/create-checkout-session', { products });
+      const productresponse=await axios.post('https://safesecure.onrender.com/claimProduct',{
         productId,
         userId,
         productType
