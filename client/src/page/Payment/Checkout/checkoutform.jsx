@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Navigate, useNavigate } from "react-router";
 
 
 const CheckoutForm = ({ product }) => {
@@ -12,6 +13,7 @@ const CheckoutForm = ({ product }) => {
   const elements = useElements();
   
 
+  const Navigate = useNavigate();
     
   const [profileData, setProfileData]=useState(false);
   const [isLoggedIn,setIsLoggedIn]=useState(null);
@@ -58,6 +60,7 @@ const CheckoutForm = ({ product }) => {
 
   console.log(profileData)
 
+
   
 
   useEffect(() => {
@@ -66,24 +69,60 @@ const CheckoutForm = ({ product }) => {
   }, []);
   console.log(profileData,"UserData");
   
+if(profileData==null){
+  const handleLogin = ()=>{
+    Navigate('/')
+  }
+  const handleBack = ()=>{
+    Navigate(-1);
+  }
+  return(
 
+    <div className=" fixed inset-0 flex items-center justify-center bg-black/60 bg-opacity-60">
+          <div className="justify-center bg-white p-16 rounded-md ">
+            <h2 className=" text-2xl font-thin  ">Log In to Continue !! </h2>
+            
+            
+            <div className="justify-center flex gap-5">
+              <button onClick={handleLogin} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+                OK
+              </button>
+              <button onClick={handleBack} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+                Close
+              </button>
+
+            </div>
+            
+          </div>
+        </div>
+  )
+}
 
   const handleSubmit = async (event) => {
+
+    const onClose=()=>{
+
+    }
+
     event.preventDefault();
     console.log(product,1);
     const products = [product];
 
     const productId=products[0].id;
     const productType=products[0].type;
-    const userId=profileData.id;
+    const userId=profileData?.id;
+    
     console.log(productId,productType,userId);
     try {
+      
+      
       const response = await axios.post('https://safesecure.onrender.com/create-checkout-session', { products });
       const productresponse=await axios.post('https://safesecure.onrender.com/claimProduct',{
         productId,
         userId,
         productType
       });
+      
       
       
       

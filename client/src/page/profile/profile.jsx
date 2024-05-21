@@ -3,11 +3,15 @@ import img4 from '../../assets/1.png'
 import Footer from '../../components/footer/footer';
 import Navbar from '../../components/Navbar/navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
+
 const Profile = () => {
     
     const [profileData, setProfileData]=useState(false);
     const [isLoggedIn,setIsLoggedIn]=useState(null);
     const[claimedProduct,setClaimedProducts]=useState([]);
+
+    const Navigate = useNavigate();
 
   const token = JSON.parse(localStorage.getItem('Profile'));
   const checkAuthenticationAndFetchProfile = () => {
@@ -56,6 +60,37 @@ const Profile = () => {
     console.log('Navbar component mounted');
       checkAuthenticationAndFetchProfile();
   }, []);
+
+
+  if(profileData==null){
+    const handleLogin = ()=>{
+      Navigate('/')
+    }
+    const handleBack = ()=>{
+      Navigate(-1);
+    }
+    return(
+  
+      <div className=" fixed inset-0 flex items-center justify-center bg-black/60 bg-opacity-60">
+            <div className="justify-center bg-white p-16 rounded-md ">
+              <h2 className=" text-2xl font-thin  ">Log In to Continue !! </h2>
+              
+              
+              <div className="justify-center flex gap-5">
+                <button onClick={handleLogin} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+                  OK
+                </button>
+                <button onClick={handleBack} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+                  Close
+                </button>
+  
+              </div>
+              
+            </div>
+          </div>
+    )
+  }
+
   console.log(profileData);
   const getInitials = (name) => {
     return name ? name.slice(0, 1).toUpperCase() : '';
