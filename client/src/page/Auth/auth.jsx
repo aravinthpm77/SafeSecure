@@ -3,7 +3,8 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import {toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import img1 from '../../assets/4755623.jpg'
+import img2 from '../../assets/5695091.jpg'
 
 const Auth = ()=>{
     const [isSignup,setIsSignup]=useState(false);
@@ -77,34 +78,36 @@ const Auth = ()=>{
 
     
     return(
-        <div className="bg-teal-200 h-screen w-screen flex justify-center items-center">
-        <div className="mt-10 bg-rgba-162-248-251-955 ml-16 px-2 py-5">
-            <form className="flex flex-col items-center justify-center bg-white/50 p-10 w-80 rounded-lg" onSubmit={handleSubmit}>
+        <div className="bg-black/30 h-screen w-screen flex justify-center fixed items-center">
+        <div className=" justify-center   w-4/12 ">
+            <img className="absolute -z-10 mt-80 ml-80 " src={img1}/>
+            <img src={img2} className="absolute  -z-10 -ml-64 -mt-24"/>
+            <form className="z-10 flex flex-col items-center justify-center bg-white/30 h-full p-10 w-full rounded-lg " onSubmit={handleSubmit}>
                <p className="text-2xl uppercase text-gray-800 tracking-wide"> {isSignup ? 'Sign Up' :'Log In'}</p>
                 {isSignup &&  
                 
                 <label >
-                    <input type="text" onChange={(e)=>{setName(e.target.value)}} className="bg-white  mt-7 px-5 py-3 w-56 border-none rounded-md"   placeholder="Enter the name"/>
+                    <input type="text" onChange={(e)=>{setName(e.target.value)}} className="bg-white  mt-7 px-14 py-3  border-none rounded-md"   placeholder="Enter the name"/>
                     
-
                 </label>
                 }
-                <input type="email" onChange={(e)=>{setEmail(e.target.value)}} className="bg-white mt-7 px-5 py-3 w-56 border-none rounded-md"  placeholder="Enter the Email"  />
+                <input type="email" onChange={(e)=>{setEmail(e.target.value)}} className="bg-white mt-7 px-14 py-3 border-none rounded-md"  placeholder="Enter the Email"  />
                 
-                <input type="password" onChange={(e)=>{setPassword(e.target.value)}} className="bg-white mt-7 px-5 py-3 w-56 border-none rounded-md" placeholder="Enter the Password"  />
+                <input type="password" onChange={(e)=>{setPassword(e.target.value)}} className="bg-white mt-7 px-14 py-3 border-none rounded-md" placeholder="Enter the Password"  />
                 
 
 
                 <button  className="mt-10 bg-teal-300 w-56 h-10 text-base uppercase rounded-full text-gray-800 tracking-wide transition duration-300 ease-in-out hover:bg-rgb-29-180-175 hover:text-white hover:bg-teal-600" type="submit" >{isSignup ? 'Sign UP' : 'Log In'}</button>
 
 
-
-            </form>
-            <p className="text-sm mt-25 mx-20 tracking-wide grid mt-5">
-                {isSignup ? 'Already have account':'Create new account'}
+                <p className=" flex gap-3 text-sm  my-36 tracking-wide mt-5">
+                {isSignup ? 'Already have an account':'Create new account'}
                 <button type="button"  onClick={handleSwitch} className="text-teal-500 text-base uppercase tracking-widest cursor-pointer font-normal hover:text-teal-950" > {isSignup ? 'Log In' : 'Sign Up'}</button>
                 
-            </p>
+                </p>
+
+            </form>
+            
         </div>
         
         
