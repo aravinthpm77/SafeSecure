@@ -18,8 +18,8 @@ const Homedetails = () =>{
         <div className="top-0 left-0 w-screen  sm:h-screen h-3/4 ">
             <div className="mt-14 -z-20 w-screen text-sm md:text-lg lg:text-xl">
                 <p className="text-base w-screen  font-semibold py-3 bg-gray-200 text-sky-700 ">Our Commitment to Diversity , Equity , Inclusion</p>
-                <div className="w-screen font-semibold py-3  ">
-                    <p className="font-sans text-5xl w-screen font-bold text-black/90 mt-3  ">Take the Worry Out of Life with<br/> Insurance Protection</p>
+                <div className="justify-center items-center w-screen font-semibold py-3  ">
+                    <p className="font-sans p-5 text-5xl w-screen font-bold text-black/90 mt-3  ">Take the Worry Out of Life with<br/> Insurance Protection</p>
                     <p className="text-base text-gray-600 w-screen mr-80 mt-5 ">Building a Better World, One Policy at a Time
                     <br/>Ensuring Security, Empowering Futures</p>
                     <button className="w-48 h-12 mt-4 rounded mr-5 text-base text-gray-50 bg-slate-700  transition duration-300 ease-in-out hover:bg-slate-400 hover:text-gray-800">Get Started</button>

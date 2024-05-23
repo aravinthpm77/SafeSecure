@@ -80,9 +80,9 @@ const Auth = ()=>{
     return(
         <div className="bg-black/30 h-screen w-screen flex justify-center fixed items-center">
         <div className=" justify-center   w-4/12 ">
-            <img className="absolute -z-10 mt-80 ml-80 " src={img1}/>
-            <img src={img2} className="absolute  -z-10 -ml-64 -mt-24"/>
-            <form className="z-10 flex flex-col items-center justify-center bg-white/30 h-full p-10 w-full rounded-lg " onSubmit={handleSubmit}>
+            <img className="absolute -z-10  -ml-96  mt-72 sm:mt-80 sm:ml-80 " src={img1}/>
+            <img src={img2} className="absolute  -z-10 sm:-ml-64  -mt-64  sm:-mt-24"/>
+            <form className="z-10 flex flex-col items-center justify-between   bg-white/30 -ml-20 sm:ml-0 h-full p-10 w-fit  sm:w-full rounded-lg " onSubmit={handleSubmit}>
                <p className="text-2xl uppercase text-gray-800 tracking-wide"> {isSignup ? 'Sign Up' :'Log In'}</p>
                 {isSignup &&  
                 

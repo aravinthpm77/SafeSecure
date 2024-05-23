@@ -3,12 +3,12 @@ import img1 from "../../assets/img1.jpg";
 
 const Insurance = () => {
   return (
-    <div className="top-0 left-0 w-screen h-screen sm:mt-0 mt-7 bg-slate-200">
-      <div className="sm:text-left py-7 sm:ml-20 w-96">
+    <div className="text-center sm:text-left pb-10 top-0 left-0  w-screen h-fit sm:h-screen sm:mt-0 mt-7 bg-slate-200">
+      <div className="  py-7 sm:ml-20 w-96">
         <h2 className="font-sans text-4xl font-bold tracking-tight text-sky-950">
           Why Insurance ?
         </h2>
-        <p className="font-sans text-xl tracking-wide font-bold mt-2">
+        <p className="font-sans text-xl t-racking-wide font-bold mt-2">
           Strength that speaks for itself
         </p>
       </div>

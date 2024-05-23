@@ -11,8 +11,8 @@ import Profile from "./page/profile/profile";
 const AllRoutes= ()=>{
     return(
         <Routes>
-            <Route exact path='/' element={<Auth/>}/>
-            <Route exact path='/Home' element={<Home/>}/>
+            <Route exact path='/Login' element={<Auth/>}/>
+            <Route exact path='/' element={<Home/>}/>
             <Route exact path='/Auto-policy' element={<Auto/>}/>
             <Route exact path='/Home-policy' element={<House/>}/>
             <Route exact path='/Life-policy' element={<Life/>}/>

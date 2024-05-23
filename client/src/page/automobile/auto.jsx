@@ -67,11 +67,11 @@ const Auto =()=>{
                         <p className=" text-left w-5/6 mt-5" >Car insurance also known as vehicle insurance provides financial coverage to the insured car against road accidents, theft, and fire. It also covers damages due to natural calamities, animal attacks, and manmade acts, along with third-party death or property damages. Having a valid third-party insurance policy ensures that you comply with the laws of the Motor Vehicles Act, 1988.Auto insurance provides financial protection in case of accidents, theft, or damage to your vehicle. It typically covers liability for injuries or damages to others, as well as collision and comprehensive coverage for your own vehicle. Policyholders pay premiums based on factors like driving record, vehicle type, and location. It's essential for peace of mind on the road.</p>
 
                     </div>
-                    <div class=" my-24 p-3 mx-auto md:px-6 bg-slate-200">
+                    <div class=" my-24 p-3 container w-full   mx-auto  md:px-6 bg-slate-200">
   
                         <section class="mb-20 text-center">
                             <h2 class="mb-16 text-3xl font-bold mt-3">
-                            Why is it so<u class="text-slate-800 text-[36px] dark:text-primary-400"> great?</u>
+                            Why is it so<u class="text-slate-800  text-[36px] dark:text-primary-400"> great?</u>
                             </h2>
                             <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
                             <div class="mb-12 md:mb-0">

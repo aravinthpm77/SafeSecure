@@ -71,7 +71,7 @@ const CheckoutForm = ({ product }) => {
   
 if(profileData==null){
   const handleLogin = ()=>{
-    Navigate('/')
+    Navigate('/Login')
   }
   const handleBack = ()=>{
     Navigate(-1);
