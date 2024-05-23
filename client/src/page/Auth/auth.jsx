@@ -65,7 +65,7 @@ const Auth = ()=>{
                     
                     localStorage.setItem("UserDetails", JSON.stringify({ name: response.data.name, email, password }));
                     localStorage.setItem("Profile", JSON.stringify({ token: response.data.token }));
-                    navigate('/home');
+                    navigate('/');
                 } else {
                     toast.warning(`Warning: ${response.data.Error}`);
                 }
