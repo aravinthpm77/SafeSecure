@@ -1,22 +1,77 @@
-import React from "react";
+import React, { useState ,useEffect} from "react";
+import { useNavigate } from "react-router";
 import Navbar from "../../components/Navbar/navbar";
 import Footer from "../../components/footer/footer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import axios from "axios";
+import CheckoutForm from '../Payment/Checkout/checkoutform'
+const stripePromise = loadStripe('pk_test_51PH4YqSCqTpCrJFxSfEtZWhpZ674A6GKyz8OHH4VV87vIcigXYEaRN9N67y9xj2irWFOTCvCNJh1DDZ9OwLUOkaQ00YMUcMANq');
+
+  
+
+
+const ProductDetails = ({ product, onClose }) => {
+    return (
+      <div className=" fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+        <div className="bg-white p-8 rounded-lg">
+          <h2 className=" text-3xl font-thin uppercase mb-4">Product Details</h2>
+          <p className="text-xl "><strong>Name:</strong> {product.name}</p>
+          <p className="text-xl "> <strong>Price: </strong> ₹ {product.price}</p>
+          <h3 className="text-xl  font-semibold mt-4">Features:</h3>
+          <ul className="list-none   mb-5">
+            {product.details.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm product={product} />
+          </Elements>
+          <button onClick={onClose} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  };
+  
+
 const House =()=>{
+
+    
+
+    const[selectedProduct , setSelectedProduct]=useState(null);
+    const handleBuyClick = (product) => {
+        setSelectedProduct(product);
+      };
+    const closeProductDetails = () => {
+    setSelectedProduct(null);
+    };
+
+
+    const products = [
+        {type:"house",id:1, name: "FIRST", price: "0", details: ["Unlimited updates"] },
+        {type:"house",id:2, name: "Basic", price: "1099", details: ["Unlimited updates", "Git repository", "npm installation"] },
+        {type:"house",id:3, name: "Advanced", price: "2499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets"] },
+        {type:"house",id:4, name: "Enterprise", price: "3499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets", "Premium support", "Drag&Drop builder"] }
+    ];
+
+  
     return(
         <div>
             <div>
                 <Navbar/>
                 <div className= " container mt-14 h-auto ">
                     <div className="ml-10 mt-16">
-                        <h3 className="text-[40px] font-bold font-sans text-left tracking-tighter ">Home Insurance</h3>
-                        <p className=" text-left w-5/6 mt-5" >Car insurance also known as vehicle insurance provides financial coverage to the insured car against road accidents, theft, and fire. It also covers damages due to natural calamities, animal attacks, and manmade acts, along with third-party death or property damages. Having a valid third-party insurance policy ensures that you comply with the laws of the Motor Vehicles Act, 1988.Auto insurance provides financial protection in case of accidents, theft, or damage to your vehicle. It typically covers liability for injuries or damages to others, as well as collision and comprehensive coverage for your own vehicle. Policyholders pay premiums based on factors like driving record, vehicle type, and location. It's essential for peace of mind on the road.</p>
+                        <h3 className="text-[40px] font-bold font-sans text-left tracking-tighter ">House Insurance</h3>
+                        <p className=" text-left w-5/6 mt-5" >House insurance also known as vehicle insurance provides financial coverage to the insured car against road accidents, theft, and fire. It also covers damages due to natural calamities, animal attacks, and manmade acts, along with third-party death or property damages. Having a valid third-party insurance policy ensures that you comply with the laws of the Motor Vehicles Act, 1988.Auto insurance provides financial protection in case of accidents, theft, or damage to your vehicle. It typically covers liability for injuries or damages to others, as well as collision and comprehensive coverage for your own vehicle. Policyholders pay premiums based on factors like driving record, vehicle type, and location. It's essential for peace of mind on the road.</p>
 
                     </div>
-                    <div class=" my-24 p-3 mx-auto md:px-6 bg-slate-200">
+                    <div class=" my-24 p-3 container w-full   mx-auto  md:px-6 bg-slate-200">
   
                         <section class="mb-20 text-center">
                             <h2 class="mb-16 text-3xl font-bold mt-3">
-                            Why is it so<u class="text-slate-800 text-[36px] dark:text-primary-400"> great?</u>
+                            Why is it so<u class="text-slate-800  text-[36px] dark:text-primary-400"> great?</u>
                             </h2>
                             <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
                             <div class="mb-12 md:mb-0">
@@ -73,7 +128,7 @@ const House =()=>{
                 <div>
                     <div class="container  my-24 mx-auto md:px-6 ">
  
-                        <section class="">
+                        <section >
                             <h2 class="mb-6 text-center text-4xl font-medium">Pricing</h2>
 
                             <p class="mb-12 text-center text-neutral-500 dark:text-neutral-700/75">
@@ -81,202 +136,61 @@ const House =()=>{
                             </p>
 
                             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-12">
-                            <div class="mb-6 lg:mb-0">
-                                <div
-                                class="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
-                                <div class="border-b-2 border-neutral-100 border-opacity-100 p-6 text-center dark:border-opacity-50">
-                                    <p class="mb-4 text-sm uppercase">
-                                    <strong>FIRST</strong>
-                                    </p>
-                                    <h3 class="mb-6 text-3xl">
-                                    <strong>Free</strong>
-                                    </h3>
-
-                                    <button type="button"
-                                    class="inline-block w-full rounded bg-slate-800/90 hover:bg-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] text-white px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal  transition duration-150 ease-in-out  focus:bg-slate-600/60 focus:text-black  focus:outline-none focus:ring-0 active:bg-primary-accent-200"
-                                    data-te-ripple-init data-te-ripple-color="light">
-                                    Buy
-                                    </button>
+                            {products.map((product, index) => (
+                                <div key={index} className="mb-6 lg:mb-0">
+                                    <div className="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
+                                        <div className="border-b-2 border-neutral-100 border-opacity-100 p-6 text-center dark:border-opacity-50">
+                                            <p className="mb-4 text-sm uppercase">
+                                                <strong>{product.name}</strong>
+                                            </p>
+                                            <h3 className="mb-6 text-3xl">
+                                                <strong>₹ {product.price}</strong>
+                                            </h3>
+                                             
+                                            <button
+                                                type="button"
+                                                className="inline-block w-full rounded bg-slate-800/90 hover:bg-slate-800 shadow-[0_4px_9px_-4px_#3b71ca] text-white px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:bg-slate-600/60 focus:text-black focus:outline-none focus:ring-0 active:bg-primary-accent-200"
+                                                onClick={() => handleBuyClick(product)}
+                                            >
+                                                Buy
+                                            </button>
+                                        </div>
+                                        <div className="p-6">
+                                            <ol className="list-inside">
+                                                {product.details.map((feature, i) => (
+                                                <li key={i} className="mb-4 flex">
+                                                    <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth="2"
+                                                    stroke="currentColor"
+                                                    className="mr-3 h-5 w-5 text-primary dark:text-primary-400"
+                                                    >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M4.5 12.75l6 6 9-13.5"
+                                                    />
+                                                    </svg>
+                                                    {feature}
+                                                </li>
+                                                ))}
+                                            </ol>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="p-6">
-                                    <ol class="list-inside">
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Unlimited
-                                        updates
-                                    </li>
-                                    </ol>
-                                </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-6 lg:mb-0">
-                                <div
-                                class="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
-                                <div class="border-b-2 border-neutral-100 border-opacity-100 p-6 text-center dark:border-opacity-40">
-                                    <p class="mb-4 text-sm uppercase">
-                                    <strong>Basic</strong>
-                                    </p>
-                                    <h3 class="mb-6 text-3xl">
-                                    <strong>&#8377; 1099</strong>
-                                    <small class="text-sm text-gray-700 dark:text-gray-800 font-semibold">/month</small>
-                                    </h3>
-
-                                    <button type="button"
-                                    class="inline-block w-full rounded bg-slate-800/90 hover:bg-slate-800 px-6 pt-2.5 pb-2 text-xs shadow-[0_4px_9px_-4px_#3b71ca] font-medium uppercase leading-normal text-white transition duration-150 ease-in-out  focus:bg-slate-600/60 focus:text-black focus:outline-none focus:ring-0 active:bg-primary-accent-200"
-                                    data-te-ripple-init data-te-ripple-color="light">
-                                    Buy
-                                    </button>
-                                </div>
-                                <div class="p-6">
-                                    <ol class="list-inside">
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Unlimited
-                                        updates
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Git
-                                        repository
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>npm
-                                        installation
-                                    </li>
-                                    </ol>
-                                </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-6 lg:mb-0">
-                                <div
-                                class="block h-full rounded-lg border border-primary bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
-                                <div class="border-b-2 border-neutral-100 border-opacity-100 p-6 text-center dark:border-opacity-40">
-                                    <p class="mb-4 text-sm uppercase">
-                                    <strong>Advanced</strong>
-                                    </p>
-                                    <h3 class="mb-6 text-3xl">
-                                    <strong>&#8377; 2599</strong>
-                                    <small class="text-sm text-neutral-500 dark:text-gray-800 font-semibold">/month</small>
-                                    </h3>
-
-                                    <button type="button"
-                                    class="inline-block w-full rounded bg-slate-800/90 hover:bg-slate-800 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]  focus:bg-slate-600/60 focus:text-black focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                    data-te-ripple-init data-te-ripple-color="light">
-                                    Buy
-                                    </button>
-                                </div>
-                                <div class="p-6">
-                                    <ol class="list-inside">
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Unlimited
-                                        updates
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Git
-                                        repository
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>npm
-                                        installation
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Code examples
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Premium
-                                        snippets
-                                    </li>
-                                    </ol>
-                                </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-6 lg:mb-0">
-                                <div
-                                class="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
-                                <div class="border-b-2 border-neutral-100 border-opacity-100 p-6 text-center dark:border-opacity-40">
-                                    <p class="mb-4 text-sm uppercase">
-                                    <strong>Enterprise</strong>
-                                    </p>
-                                    <h3 class="mb-6 text-3xl">
-                                    <strong>&#8377; 3499</strong>
-                                    <small class="text-sm text-neutral-500 dark:text-gray-800 font-semibold">/month</small>
-                                    </h3>
-
-                                    <button type="button"
-                                    class="inline-block w-full rounded bg-slate-800/90 hover:bg-slate-800 px-6 pt-2.5 shadow-[0_4px_9px_-4px_#3b71ca] pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-accent-100  focus:bg-slate-600/60 focus:text-black focus:outline-none focus:ring-0 active:bg-primary-accent-200"
-                                    data-te-ripple-init data-te-ripple-color="light">
-                                    Buy
-                                    </button>
-                                </div>
-                                <div class="p-6">
-                                    <ol class="list-inside">
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Unlimited
-                                        updates
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Git
-                                        repository
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>npm
-                                        installation
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Code examples
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Premium
-                                        snippets
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Premium
-                                        support
-                                    </li>
-                                    <li class="mb-4 flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" class="mr-3 h-5 w-5 text-primary dark:text-primary-400">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>Drag&amp;Drop
-                                        builder
-                                    </li>
-                                    </ol>
-                                </div>
-                                </div>
-                            </div>
+                            ))}
                             </div>
                         </section>
                         
                         </div>
+                        {selectedProduct && (
+                        <ProductDetails 
+                            product={selectedProduct}
+                            onClose={closeProductDetails}
+                        />
+                        )}
 
                     </div>
                <Footer/>

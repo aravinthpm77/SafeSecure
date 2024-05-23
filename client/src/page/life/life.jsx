@@ -1,12 +1,15 @@
 import React, { useState ,useEffect} from "react";
+import { useNavigate } from "react-router";
+import Navbar from "../../components/Navbar/navbar";
+import Footer from "../../components/footer/footer";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import CheckoutForm from '../Payment/Checkout/checkoutform'
-import { useNavigate } from "react-router";
-import Navbar from "../../components/Navbar/navbar";
-import Footer from "../../components/footer/footer";
 const stripePromise = loadStripe('pk_test_51PH4YqSCqTpCrJFxSfEtZWhpZ674A6GKyz8OHH4VV87vIcigXYEaRN9N67y9xj2irWFOTCvCNJh1DDZ9OwLUOkaQ00YMUcMANq');
+
+  
+
 
 const ProductDetails = ({ product, onClose }) => {
     return (
@@ -32,7 +35,11 @@ const ProductDetails = ({ product, onClose }) => {
     );
   };
   
+
 const Life =()=>{
+
+    
+
     const[selectedProduct , setSelectedProduct]=useState(null);
     const handleBuyClick = (product) => {
         setSelectedProduct(product);
@@ -40,84 +47,31 @@ const Life =()=>{
     const closeProductDetails = () => {
     setSelectedProduct(null);
     };
-    
+
+
     const products = [
-        { name: "FIRST", price: "0", details: ["Unlimited updates"] },
-        { name: "Basic", price: "1099", details: ["Unlimited updates", "Git repository", "npm installation"] },
-        { name: "Advanced", price: "2499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets"] },
-        { name: "Enterprise", price: "3499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets", "Premium support", "Drag&Drop builder"] }
+        {type:"Life",id:1, name: "FIRST", price: "0", details: ["Unlimited updates"] },
+        {type:"Life",id:2, name: "Basic", price: "1099", details: ["Unlimited updates", "Git repository", "npm installation"] },
+        {type:"Life",id:3, name: "Advanced", price: "2499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets"] },
+        {type:"Life",id:4, name: "Enterprise", price: "3499", details: ["Unlimited updates", "Git repository", "npm installation", "Code examples", "Premium snippets", "Premium support", "Drag&Drop builder"] }
     ];
 
-    
-    const [profileData, setProfileData]=useState(false);
-    const [isLoggedIn,setIsLoggedIn]=useState(null);
-    
-
-    const token = JSON.parse(localStorage.getItem('Profile'));
-    const checkAuthenticationAndFetchProfile = () => {
-        
-        console.log(token);
-        if (token) {
-            axios.get('https://safesecure.onrender.com/verifyToken', {
-                headers: {
-                    Authorization: `Bearer ${token.token}`
-                }
-            }).then(response => {
-                // If token is valid, set isLoggedIn to true
-                setIsLoggedIn(true);
-                // Fetch profile data
-                axios
-          .get("https://safesecure.onrender.com/singleUser", {
-            headers: { Authorization: `Bearer ${token.token}` },
-          })
-
-                  .then(response => {
-                      // Set profile data in state
-                      setProfileData(response.data);
-                  }).catch(error => {
-                      console.error("Error fetching profile data:", error);
-                  });
-            }).catch(error => {
-                // If token is invalid, log out user and remove token from local storage
-                setIsLoggedIn(false);
-                localStorage.removeItem('Profile');
-                localStorage.removeItem('UserDetails');
-                // Clear profile data
-                setProfileData(null);
-            });
-        } else {
-            // If no token found, set isLoggedIn to false and clear profile data
-            setIsLoggedIn(false);
-            setProfileData(null);
-        }
-    };
-
-    console.log(profileData)
-
-    
-
-    useEffect(() => {
-        
-        checkAuthenticationAndFetchProfile();
-    }, []);
-    console.log(profileData,"Life");
-    
-
+  
     return(
         <div>
             <div>
-                <Navbar/>
-                <div className= " container mt-14 h-auto  ">
+                
+                <div className= " container mt-14 h-auto ">
                     <div className="ml-10 mt-16">
                         <h3 className="text-[40px] font-bold font-sans text-left tracking-tighter ">Life Insurance</h3>
-                        <p className=" text-left w-5/6 mt-5" >Life insurance is a contract between an insurance company and a policyholder, where the insurer agrees to pay a beneficiary a sum of money upon the policyholder's death. The policyholder is responsible for making regular payments, while the insured person is the one whose death triggers the payment of the death benefit. The policy may remain in force as long as the policyholder pays the premiums on time.Life insurance is a contract between an insurance company and a policyholder, where the insurer agrees to pay a beneficiary a sum of money upon the policyholder's death. The policyholder is responsible for making regular payments, while the insured person is the one whose death triggers the payment of the death benefit. The policy may remain in force as long as the policyholder pays the premiums on time .</p>
+                        <p className=" text-left w-5/6 mt-5" >Life insurance also known as vehicle insurance provides financial coverage to the insured car against road accidents, theft, and fire. It also covers damages due to natural calamities, animal attacks, and manmade acts, along with third-party death or property damages. Having a valid third-party insurance policy ensures that you comply with the laws of the Motor Vehicles Act, 1988.Auto insurance provides financial protection in case of accidents, theft, or damage to your vehicle. It typically covers liability for injuries or damages to others, as well as collision and comprehensive coverage for your own vehicle. Policyholders pay premiums based on factors like driving record, vehicle type, and location. It's essential for peace of mind on the road.</p>
 
                     </div>
-                    <div class=" my-24 p-3 mx-auto md:px-6 bg-slate-200">
+                    <div class=" my-24 p-3 container w-full   mx-auto  md:px-6 bg-slate-200">
   
                         <section class="mb-20 text-center">
                             <h2 class="mb-16 text-3xl font-bold mt-3">
-                            Why is it so<u class="text-slate-800 text-[36px] dark:text-primary-400"> great?</u>
+                            Why is it so<u class="text-slate-800  text-[36px] dark:text-primary-400"> great?</u>
                             </h2>
                             <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
                             <div class="mb-12 md:mb-0">
@@ -172,7 +126,7 @@ const Life =()=>{
                     </div>
                 </div>
                 <div>
-                    <div class="container  my-24 mx-auto md:px-6  ">
+                    <div class="container  my-24 mx-auto md:px-6 ">
  
                         <section >
                             <h2 class="mb-6 text-center text-4xl font-medium">Pricing</h2>
@@ -181,7 +135,7 @@ const Life =()=>{
                             Financial coverage to the insured car against road accidents, theft, and fire.
                             </p>
 
-                            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-12  ">
+                            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-12">
                             {products.map((product, index) => (
                                 <div key={index} className="mb-6 lg:mb-0">
                                     <div className="block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-slate-400">
