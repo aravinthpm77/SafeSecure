@@ -42,7 +42,7 @@ const Auth = ()=>{
             toast.success("Created Successfully");
             toast.success("LogIn Now");
             setFormSubmitted(true);
-            navigate('/');
+            navigate('/Login');
         } catch (error) {
             console.error('Signup Error:', error.response || error);
             toast.error("Error: " + (error.response?.data?.message || error.message));
