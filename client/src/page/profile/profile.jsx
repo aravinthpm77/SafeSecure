@@ -50,6 +50,7 @@ const Profile = () => {
           setIsLoggedIn(false);
           setProfileData(null);
       }
+
   };
 
   console.log(profileData)
@@ -62,6 +63,7 @@ const Profile = () => {
   }, []);
 
 
+  
   if(profileData==null){
     const handleLogin = ()=>{
       Navigate('/Login')
@@ -83,6 +85,7 @@ const Profile = () => {
                 <button onClick={handleBack} className="mt-4 px-4 py-2 bg-red-500 text-white rounded">
                   Close
                 </button>
+                
   
               </div>
               

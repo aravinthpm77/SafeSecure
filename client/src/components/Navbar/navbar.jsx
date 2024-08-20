@@ -38,7 +38,7 @@ const Navbar=()=>{
                   setIsLoggedIn(true);
                   // Fetch profile data
                   axios
-            .get("https://safesecure.onrender.com/singleUser", {
+                  .get("https://safesecure.onrender.com/singleUser", {
               headers: { Authorization: `Bearer ${token.token}` },
             })
 
